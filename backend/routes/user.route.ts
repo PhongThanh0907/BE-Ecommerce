@@ -1,5 +1,5 @@
 import express from 'express'
-import { createUserHandler, deleteUserHandler, getUserHandler, getUsersHandler, loginUserHandler, updateUserHandler } from '../controllers/user.controller';
+import { createUserHandler, deleteUserHandler, getUserHandler, getUsersHandler, loginUserHandler, updateUserHandler } from '../controllers/userControllers';
 import { protect, verifyTokenAndAdmin } from '../models/authMiddleware';
 
 const router = express.Router();

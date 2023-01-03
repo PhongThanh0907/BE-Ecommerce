@@ -1,7 +1,7 @@
 import bcrypt from "bcryptjs";
 
 import { checkIsValidObjectId } from "../database/db";
-import UserModel from "../models/user.model";
+import UserModel from "../models/userModel";
 import { sanitizeLoginUser, sanitizeUser } from "../sanitizers/userSanitizer";
 import { IUserSchema } from "../schemas/userSchema";
 import { UserReturnType, UserType } from "../types/userType";
