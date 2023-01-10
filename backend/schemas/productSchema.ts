@@ -45,5 +45,7 @@ const productSchema = new Schema<ProductType>(
   },
   { timestamps: true }
 );
+productSchema.index({  nameProduct: "text", brand: "text" });
+
 
 export default productSchema;

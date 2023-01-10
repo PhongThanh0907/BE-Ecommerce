@@ -3,9 +3,49 @@ import ProductModel from "../models/productModel";
 import { IProductSchema } from "../schemas/productSchema";
 import { ProductType } from "../types/productType";
 
-export const getProducts = async (): Promise<ProductType[]> => {
+export const getProducts = async ({
+  searchText,
+  type,
+  max,
+  brand,
+  sort,
+}: {
+  searchText?: any;
+  type?: any;
+  max?: any;
+  brand?: any;
+  sort: any;
+}): Promise<ProductType[]> => {
+  const search: any = {};
+
+  if (max) search.price = { $gt: 0, $lt: max };
+  if (brand)
+    search.brand = {
+      $in: brand,
+    };
+  if (type)
+    search.type = {
+      $in: type,
+    };
+
+  let searchInput = {};
+
+  if (searchText)
+    searchInput = {
+      $or: [
+        { brand: { $regex: `${searchText}`, $options: "i" } },
+        { nameProduct: { $regex: `${searchText}`, $options: "i" } },
+        { type: { $regex: `${searchText}`, $options: "i" } },
+      ],
+    };
+
+  const sortParams: any = {};
+  if (sort) sortParams.price = sort;
+
   try {
-    const products = await ProductModel.find();
+    const products = await ProductModel.find(search)
+      .find(searchInput)
+      .sort(sortParams);
     if (!products) throw new Error("No products found");
     return products;
   } catch (error) {

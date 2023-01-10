@@ -8,15 +8,20 @@ import {
 } from "../services/productService";
 const asyncHandler = require("express-async-handler");
 
-export const getProductsHandler = asyncHandler(async (req: Request, res: Response) => {
-  const products = await getProducts();
-  res.status(200).json(products);
-});
+export const getProductsHandler = asyncHandler(
+  async (req: Request, res: Response) => {
+    const { searchText, max, brand, sort, type } = req.query;
+    const products = await getProducts({searchText,type, max, brand, sort});
+    res.status(200).json(products);
+  }
+);
 
-export const getProductHandler = asyncHandler(async (req: Request, res: Response) => {
-  const product = await getProductById(req.params.id);
-  res.status(200).json(product);
-});
+export const getProductHandler = asyncHandler(
+  async (req: Request, res: Response) => {
+    const product = await getProductById(req.params.id);
+    res.status(200).json(product);
+  }
+);
 
 export const createProductHandler = asyncHandler(
   async (req: Request, res: Response) => {

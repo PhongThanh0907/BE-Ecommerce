@@ -1,6 +1,6 @@
 import express from "express";
 import "dotenv/config";
-
+import cors from "cors";
 import { connectDB } from "./database/db";
 import { PORT } from "./utils/config";
 import { errorHandler } from "./middleware/errorMiddleWare";
@@ -12,6 +12,8 @@ import productRoute from './routes/product.route'
 connectDB()
 
 const app = express();
+
+app.use(cors());
 
 app.use(express.json());
 
